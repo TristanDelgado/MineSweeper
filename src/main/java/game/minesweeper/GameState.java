@@ -78,7 +78,7 @@ public class GameState {
                 if(grid.get(i).get(j) == 'y' || grid.get(i).get(j) == 'x') {
                     res = false;
                     break parent;
-                };
+                }
             }
         }
 
