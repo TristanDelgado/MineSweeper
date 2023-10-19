@@ -58,7 +58,7 @@
             <!-- Default configuration for running with: mvn clean javafx:run -->
             <id>default-cli</id>
             <configuration>
-              <mainClass>game.minesweeper/game.minesweeper.HelloApplication</mainClass>
+              <mainClass>game.minesweeper/game.minesweeper.GameDriver</mainClass>
               <launcher>app</launcher>
               <jlinkZipName>app</jlinkZipName>
               <jlinkImageName>app</jlinkImageName>
