@@ -25,6 +25,7 @@ public class GameScene {
     double sideHeight = 500;
     double topLength = 600;
     public Scene gameScene;
+    public
     GameScene(){
         Rectangle veryTopBorder        = new Rectangle(0,0, topLength, borderWidth);
         veryTopBorder.setFill(Color.GRAY);

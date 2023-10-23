@@ -11,8 +11,8 @@ public class GameDriver extends Application {
     WinLoseScene winLoseScene;
     Stage stage;
     public void start(Stage primaryStage){
-
-        titleScene   = new TitleScene();
+        //For now the width and length will be set manually
+        titleScene   = new TitleScene(600, 500);
         gameScene    = new GameScene();
         winLoseScene = new WinLoseScene();
         stage        = new Stage();
@@ -27,10 +27,9 @@ public class GameDriver extends Application {
 
     void startGameButtonPushed(MouseEvent event)
     {
-        stage.setScene(winLoseScene.getLoseScene());
+        stage.setScene(gameScene.getGameScene());
     }
 
-    
 
     public static void main(String[] args) {
         launch();

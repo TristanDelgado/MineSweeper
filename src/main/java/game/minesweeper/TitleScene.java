@@ -5,6 +5,8 @@ package game.minesweeper;
 
 import javafx.geometry.Pos;
 import javafx.scene.Group;
+import javafx.scene.layout.Background;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
@@ -26,26 +28,26 @@ public class TitleScene{
     Group introGroup;
     public Button startGameButton;
     public Button creditsButton;
-    TitleScene()
+    TitleScene(double xWindowWidth, double yWindowWidth)
     {
-        Text text = new Text("MineSweeper");
-        text.setX(260);
-        text.setY(100);
+        Text gameTitle = new Text("MineSweeper");
+        gameTitle.setFont(Font.font("Cooper Black", 80));
+        gameTitle.setStrokeWidth(3);
+        gameTitle.setStroke(Color.BLACK);
+        gameTitle.setFill(Color.NAVAJOWHITE);
+        gameTitle.setX((xWindowWidth - gameTitle.getLayoutBounds().getWidth()) * 0.5);
+        gameTitle.setY(100);
 
         startGameButton = new Button("Start Game");
-        //startGameButton.setOnAction();
-        //startGameButton.setTextFill(SetFillColorHere);
+        startGameButton.setTextFill(Color.BLACK);
+        startGameButton.setBackground(Background.fill(Color.TAN));
+        startGameButton.setPrefHeight(15);
+        startGameButton.setPrefWidth(100);
+        startGameButton.setLayoutX((xWindowWidth/2) - 50);
+        startGameButton.setLayoutY(yWindowWidth - (yWindowWidth * (2.0/3.0)));
 
-        creditsButton = new Button("Credits");
-        //creditsButton.setTextFill(SetFillColorHere);
-
-        HBox buttons = new HBox(startGameButton, creditsButton);
-        buttons.setLayoutX(230);
-        buttons.setLayoutY(150);
-        buttons.setSpacing(20);
-
-        introGroup = new Group(text, buttons);
-        intro = new Scene(introGroup, 600, 500, Color.GRAY);
+        introGroup = new Group(gameTitle, startGameButton);
+        intro = new Scene(introGroup, xWindowWidth, yWindowWidth, Color.GRAY);
     }
 
     public Scene getScene(){return intro;}
