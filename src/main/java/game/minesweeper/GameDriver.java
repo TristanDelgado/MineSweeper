@@ -6,6 +6,8 @@ import javafx.scene.input.MouseEvent;
 
 public class GameDriver extends Application {
 
+    //Use properties/listeners to process resizing the window
+
     TitleScene titleScene;
     GameScene gameScene;
     WinLoseScene winLoseScene;
@@ -13,12 +15,14 @@ public class GameDriver extends Application {
     public void start(Stage primaryStage){
         //For now the width and length will be set manually
         titleScene   = new TitleScene(600, 500);
-        gameScene    = new GameScene();
-        winLoseScene = new WinLoseScene();
+        gameScene    = new GameScene(600, 500);
+        winLoseScene = new WinLoseScene(600, 500);
         stage        = new Stage();
 
         titleScene.startGameButton.setOnMouseClicked(this::startGameButtonPushed);
-        stage.setScene(titleScene.getScene());
+        winLoseScene.backToTitleButtonWin.setOnMouseClicked(this::backToTitleButtonPushed);
+        winLoseScene.backToTitleButtonLose.setOnMouseClicked(this::backToTitleButtonPushed);
+        stage.setScene(gameScene.getGameScene());
         stage.setTitle("MineSweeper");
 
         primaryStage = stage;
@@ -28,6 +32,11 @@ public class GameDriver extends Application {
     void startGameButtonPushed(MouseEvent event)
     {
         stage.setScene(gameScene.getGameScene());
+    }
+
+    void backToTitleButtonPushed(MouseEvent event)
+    {
+        stage.setScene(titleScene.getScene());
     }
 
 
