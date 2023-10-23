@@ -91,6 +91,11 @@ public class GameState {
             int ry = random.nextInt(width);
             grid.get(rx).set(ry, 'x');
         }
+        for(int i = 0; i < height; i++) {
+            for(int j = 0; j < width; j++) {
+                grid.get(i).set(j, Character.forDigit(countAdjMines(i,j), 10) );
+            }
+         }
     }
 
 
