@@ -21,38 +21,48 @@ import javafx.stage.Window;
 public class GameScene {
 
     //Rectangle(double x, double y, double width, double height)
-    double borderWidth = 8;
-    double sideHeight = 500;
-    double topLength = 600;
+    double borderWidth = 8.0;
     public Scene gameScene;
+
+    public Button tempButton;
     public
-    GameScene(){
-        Rectangle veryTopBorder        = new Rectangle(0,0, topLength, borderWidth);
-        veryTopBorder.setFill(Color.GRAY);
+    GameScene(double xWindowWidth, double yWindowWidth, boolean gameResult)
+    {
 
-        Rectangle veryBottomBorder     = new Rectangle(0, 492, topLength, borderWidth);
-        veryBottomBorder.setFill(Color.GRAY);
+        Rectangle outLine = new Rectangle(borderWidth/2, borderWidth/2, xWindowWidth - ((borderWidth/2)*2), yWindowWidth - ((borderWidth/2)*2));
+        //For the upper left start point the borderWidth/2 gives the
+        //stroke enough room to show the whole stroke.
+        //For the bottom right corner the borderWidth/2 must be multiplied by two
+        //and then subtracted in order to compensate for the upper right corner also being moved
+        outLine.setStroke(Color.GRAY);
+        outLine.setStrokeWidth(borderWidth);
+        outLine.setFill(Color.TRANSPARENT);
 
-        Rectangle leftBorder           = new Rectangle(0, 0, borderWidth, sideHeight);
-        leftBorder.setFill(Color.GRAY);
 
-        Rectangle rightBorder          = new Rectangle(592, 0, borderWidth, sideHeight);
-        rightBorder.setFill(Color.GRAY);
-
-        Rectangle centerBorder         = new Rectangle(0, 62, topLength, borderWidth);
+        Rectangle centerBorder         = new Rectangle(0, 62, xWindowWidth, borderWidth);
         centerBorder.setFill(Color.GRAY);
 
         Rectangle informationRectangle = new Rectangle(0, 0, 600, 62);
         informationRectangle.setFill(Color.BLUE);
 
-        Group gameBackGround = new Group(informationRectangle, veryTopBorder,veryBottomBorder, leftBorder
-                ,rightBorder, centerBorder);
+        //+++++++++++++++
+        tempButton = new Button("temp");
+        tempButton.setLayoutX(300);
+        tempButton.setLayoutY(250);
+        //+++++++++++++++
+
+        Group gameBackGround = new Group(informationRectangle, centerBorder, outLine, tempButton);
         gameScene = new Scene(gameBackGround, 600, 500, Color.WHITESMOKE);
     }
 
     public Scene getGameScene()
     {
         return gameScene;
+    }
+
+    private void runGame()
+    {
+
     }
 
 }

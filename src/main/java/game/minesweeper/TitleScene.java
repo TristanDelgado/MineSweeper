@@ -38,6 +38,12 @@ public class TitleScene{
         gameTitle.setX((xWindowWidth - gameTitle.getLayoutBounds().getWidth()) * 0.5);
         gameTitle.setY(100);
 
+        Text credits = new Text("Creators: Tristan Delgado, Alex King, Tanaka Shumba");
+        credits.setFont(Font.font("Bahnschrift", 15));
+        credits.setFill(Color.WHITE);
+        credits.setX((xWindowWidth - credits.getLayoutBounds().getWidth()) * 0.5);
+        credits.setY(yWindowWidth - (yWindowWidth * .10));
+
         startGameButton = new Button("Start Game");
         startGameButton.setTextFill(Color.BLACK);
         startGameButton.setBackground(Background.fill(Color.TAN));
@@ -46,7 +52,7 @@ public class TitleScene{
         startGameButton.setLayoutX((xWindowWidth/2) - 50);
         startGameButton.setLayoutY(yWindowWidth - (yWindowWidth * (2.0/3.0)));
 
-        introGroup = new Group(gameTitle, startGameButton);
+        introGroup = new Group(gameTitle, credits, startGameButton);
         intro = new Scene(introGroup, xWindowWidth, yWindowWidth, Color.GRAY);
     }
 
