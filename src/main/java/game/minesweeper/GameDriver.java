@@ -12,21 +12,31 @@ public class GameDriver extends Application {
     GameScene gameScene;
     WinLoseScene winLoseScene;
     Stage stage;
+    int tempNum = 0;
+    boolean gameResult;
     public void start(Stage primaryStage){
         //For now the width and length will be set manually
         titleScene   = new TitleScene(600, 500);
-        gameScene    = new GameScene(600, 500);
+        gameScene    = new GameScene(600, 500, gameResult);
         winLoseScene = new WinLoseScene(600, 500);
         stage        = new Stage();
 
         titleScene.startGameButton.setOnMouseClicked(this::startGameButtonPushed);
-        winLoseScene.backToTitleButtonWin.setOnMouseClicked(this::backToTitleButtonPushed);
-        winLoseScene.backToTitleButtonLose.setOnMouseClicked(this::backToTitleButtonPushed);
-        stage.setScene(gameScene.getGameScene());
+        winLoseScene.backToTitleButton.setOnMouseClicked(this::backToTitleButtonPushed);
+        gameScene.tempButton.setOnMouseClicked(this::tempButtonPushed);
+        stage.setScene(titleScene.getScene());
         stage.setTitle("MineSweeper");
 
         primaryStage = stage;
         primaryStage.show();
+    }
+
+    void tempButtonPushed(MouseEvent event) {
+        if(tempNum == 0)
+        stage.setScene(winLoseScene.getWinScene());
+        else
+            stage.setScene(winLoseScene.getLoseScene());
+        tempNum++;
     }
 
     void startGameButtonPushed(MouseEvent event)

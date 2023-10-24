@@ -38,7 +38,7 @@ public class TitleScene{
         gameTitle.setX((xWindowWidth - gameTitle.getLayoutBounds().getWidth()) * 0.5);
         gameTitle.setY(100);
 
-        Text credits = new Text("Creators: Tristan Delgado, Alex King, Tanaka LastName");
+        Text credits = new Text("Creators: Tristan Delgado, Alex King, Tanaka Shumba");
         credits.setFont(Font.font("Bahnschrift", 15));
         credits.setFill(Color.WHITE);
         credits.setX((xWindowWidth - credits.getLayoutBounds().getWidth()) * 0.5);

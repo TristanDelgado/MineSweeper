@@ -23,8 +23,10 @@ public class GameScene {
     //Rectangle(double x, double y, double width, double height)
     double borderWidth = 8.0;
     public Scene gameScene;
+
+    public Button tempButton;
     public
-    GameScene(double xWindowWidth, double yWindowWidth)
+    GameScene(double xWindowWidth, double yWindowWidth, boolean gameResult)
     {
 
         Rectangle outLine = new Rectangle(borderWidth/2, borderWidth/2, xWindowWidth - ((borderWidth/2)*2), yWindowWidth - ((borderWidth/2)*2));
@@ -43,13 +45,24 @@ public class GameScene {
         Rectangle informationRectangle = new Rectangle(0, 0, 600, 62);
         informationRectangle.setFill(Color.BLUE);
 
-        Group gameBackGround = new Group(informationRectangle, centerBorder, outLine);
+        //+++++++++++++++
+        tempButton = new Button("temp");
+        tempButton.setLayoutX(300);
+        tempButton.setLayoutY(250);
+        //+++++++++++++++
+
+        Group gameBackGround = new Group(informationRectangle, centerBorder, outLine, tempButton);
         gameScene = new Scene(gameBackGround, 600, 500, Color.WHITESMOKE);
     }
 
     public Scene getGameScene()
     {
         return gameScene;
+    }
+
+    private void runGame()
+    {
+
     }
 
 }
