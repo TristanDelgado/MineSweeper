@@ -98,7 +98,21 @@ public class GameState {
          }
     }
 
+    void clickSquare(int x, int y) {
+        if(grid.get(x).get(y) == 'x') {
+            setGridCord(x,y,'X');
+        } else
+        if(grid.get(x).get(y) == 'X') {
+            setGridCord(x,y,'x');
+        } else
+        if(grid.get(x).get(y) == 'y') {
+            setGridCord(x,y,Character.forDigit(countAdjMines(x,y), 10));
+        } else {
+            setGridCord(x,y,'y');
+        }
 
+
+    }
 
 
 }
