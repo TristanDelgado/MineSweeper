@@ -1,7 +1,11 @@
+/*
+
+package game.extraFiles;
+
 import java.util.Random;
 import java.util.Scanner;
 
-public class MinesweeperGame {
+public class MinesSweeper {
     private static final int ROWS = 8;
     private static final int COLUMNS = 15;
     private static final int NUM_MINES = 20;
@@ -161,3 +165,4 @@ public class MinesweeperGame {
         game.playGame();
     }
 }
+ */
