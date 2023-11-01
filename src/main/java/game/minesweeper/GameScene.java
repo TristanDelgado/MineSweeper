@@ -8,6 +8,7 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
+import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
@@ -38,8 +39,16 @@ GameScene {
     ImageView [] displayNumbersArray;
     Timeline timeline;
     int timerCount;
+    GameState gameState;
+    MineSquare [][]mineSquare;
 
-    GameScene(double xWindowWidth, double yWindowWidth, boolean gameResult) {
+    GameScene(double xWindowWidth, double yWindowWidth, boolean gameResult, int boardSizeHeight, int boardSizeWidth) {
+
+        //+++++++++++++++
+        tempButton = new Button("temp");
+        tempButton.setLayoutX(150);
+        tempButton.setLayoutY(25);
+        //+++++++++++++++
 
         Rectangle outLine = new Rectangle(borderWidth / 2, borderWidth / 2, xWindowWidth - ((borderWidth / 2) * 2), yWindowWidth - ((borderWidth / 2) * 2));
         //For the upper left start point the borderWidth/2 gives the
@@ -56,12 +65,6 @@ GameScene {
 
         Rectangle informationRectangle = new Rectangle(0, 0, 600, 62);
         informationRectangle.setFill(Color.BLUE);
-
-        //+++++++++++++++
-        tempButton = new Button("temp");
-        tempButton.setLayoutX(300);
-        tempButton.setLayoutY(250);
-        //+++++++++++++++
 
         Image zeroSprite  = new Image("C:\\MineSweeperProj\\MineSweeper\\Images\\ZeroSprite.png");
         Image oneSprite   = new Image("C:\\MineSweeperProj\\MineSweeper\\Images\\OneSprite.png");
@@ -131,23 +134,49 @@ GameScene {
                                             break;
                                         case 9:
                                             displayNumbersArray[iternator].setImage(nineSprite);
-
                                     }
                                 }
+                            }
+                }));
 
-                            }}));
+        gameState = new GameState(boardSizeHeight, boardSizeWidth);
+
+        mineSquare = new MineSquare[boardSizeHeight][boardSizeWidth];
+        for(int rows = 0; rows < boardSizeHeight; rows++) {
+            for(int columns = 0; columns < boardSizeWidth; columns++)
+            {
+                mineSquare[rows][columns].setId(rows + " " + columns);
+                mineSquare[rows][columns].setOnMouseClicked(this::squareClicked);
+            }
+        }
+
+
+        GridPane gridPane = new GridPane();
+        gridPane.setLayoutX(8);
+        gridPane.setLayoutY(70);
+        for(int rows = 0; rows < boardSizeHeight; rows++) {
+            for (int columns = 0; columns < boardSizeWidth; columns++) {
+                gridPane.add(mineSquare[rows][columns],rows, columns);
+            }
+        }
 
         Group gameBackGround = new Group(informationRectangle, centerBorder, outLine, tempButton, displayNumbersArray[0],
-        displayNumbersArray[1], displayNumbersArray[2]);
+        displayNumbersArray[1], displayNumbersArray[2], gridPane);
         gameScene = new Scene(gameBackGround, 600, 500, Color.WHITESMOKE);
-
-
     }
 
     public Scene getGameScene() {
         timeline.playFromStart();
+
+
         return gameScene;
     }
+    private void squareClicked(MouseEvent event)
+    {
+        System.out.println(((MineSquare)event.getSource()).getId());
+        
+    }
+
 
 }
 

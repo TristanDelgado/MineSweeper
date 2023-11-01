@@ -17,7 +17,7 @@ public class GameDriver extends Application {
     public void start(Stage primaryStage){
         //For now the width and length will be set manually
         titleScene   = new TitleScene(600, 500);
-        gameScene    = new GameScene(600, 500, gameResult);
+        gameScene    = new GameScene(600, 500, gameResult, 10, 10);
         winLoseScene = new WinLoseScene(600, 500);
         stage        = new Stage();
 
