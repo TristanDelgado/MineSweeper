@@ -137,7 +137,7 @@ GameScene {
                                     }
                                 }
                             }
-                }));
+                        }));
 
         gameState = new GameState(boardSizeHeight, boardSizeWidth);
 
@@ -145,11 +145,11 @@ GameScene {
         for(int rows = 0; rows < boardSizeHeight; rows++) {
             for(int columns = 0; columns < boardSizeWidth; columns++)
             {
-                mineSquare[rows][columns].setId(rows + " " + columns);
+                mineSquare[rows][columns] = new MineSquare();
+                mineSquare[rows][columns].setId("" + rows + " " + columns);
                 mineSquare[rows][columns].setOnMouseClicked(this::squareClicked);
             }
         }
-
 
         GridPane gridPane = new GridPane();
         gridPane.setLayoutX(8);
@@ -174,7 +174,7 @@ GameScene {
     private void squareClicked(MouseEvent event)
     {
         System.out.println(((MineSquare)event.getSource()).getId());
-        
+        System.out.println("Clicked");
     }
 
 
