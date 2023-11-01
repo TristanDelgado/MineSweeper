@@ -1,4 +1,7 @@
-/*
+package game.extraFiles;
+
+public class Squares {
+    /*
 
 package game.extraFiles;
 
@@ -166,3 +169,5 @@ public class MinesSweeper {
     }
 }
  */
+
+}

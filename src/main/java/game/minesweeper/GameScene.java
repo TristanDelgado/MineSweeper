@@ -29,7 +29,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
-public class GameScene {
+public class
+
+GameScene {
     double borderWidth = 8.0;
     public Scene gameScene;
     public Button tempButton;
