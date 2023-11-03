@@ -23,6 +23,9 @@ public class GameState {
     ArrayList<ArrayList<Character>> getGrid() {
         return grid;
     }
+    char getaGridCord(int x, int y) {
+        return grid.get(x).get(y);
+    }
     void setGridCord(int x, int y, Character des) {
         grid.get(x).set(y, des);
     }
@@ -98,7 +101,7 @@ public class GameState {
          }
     }
 
-    void clickSquare(int x, int y) {
+    void flagSquare(int x, int y) {
         if(grid.get(x).get(y) == 'x') {
             setGridCord(x,y,'X');
         } else
@@ -113,6 +116,7 @@ public class GameState {
 
 
     }
+
 
 
 }
