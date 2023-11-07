@@ -41,16 +41,20 @@ GameScene {
     ImageView [] displayFlagsArray;
     Timeline timeline;
     int timerCount;
+    int flagCount;
     GameState gameState;
     MineSquare [][]mineSquare;
+    NumberSprites numberSprites;
+    int boardSizeHeight;
+    int boardSizeWidth;
+    boolean gameOver;
+    boolean didWin;
 
-    GameScene(double xWindowWidth, double yWindowWidth, boolean gameResult, int boardSizeHeight, int boardSizeWidth) {
-
-        //+++++++++++++++
-        tempButton = new Button("temp");
-        tempButton.setLayoutX(150);
-        tempButton.setLayoutY(25);
-        //+++++++++++++++
+    GameScene(double xWindowWidth, double yWindowWidth, boolean gameResult, int boardSizeHeight, int boardSizeWidth, int mineCount) {
+        numberSprites = new NumberSprites();
+        this.boardSizeHeight = boardSizeHeight;
+        this.boardSizeWidth = boardSizeWidth;
+        gameOver = false;
 
         Rectangle outLine = new Rectangle(borderWidth / 2, borderWidth / 2, xWindowWidth - ((borderWidth / 2) * 2), yWindowWidth - ((borderWidth / 2) * 2));
         //For the upper left start point the borderWidth/2 gives the
@@ -67,17 +71,6 @@ GameScene {
 
         Rectangle informationRectangle = new Rectangle(0, 0, 600, 62);
         informationRectangle.setFill(Color.BLUE);
-
-        Image zeroSprite  = new Image("C:\\MineSweeperProj\\MineSweeper\\Images\\ZeroSprite.png");
-        Image oneSprite   = new Image("C:\\MineSweeperProj\\MineSweeper\\Images\\OneSprite.png");
-        Image twoSprite   = new Image("C:\\MineSweeperProj\\MineSweeper\\Images\\TwoSprite.png");
-        Image threeSprite = new Image("C:\\MineSweeperProj\\MineSweeper\\Images\\ThreeSprite.png");
-        Image fourSprite  = new Image("C:\\MineSweeperProj\\MineSweeper\\Images\\FourSprite.png");
-        Image fiveSprite  = new Image("C:\\MineSweeperProj\\MineSweeper\\Images\\FiveSprite.png");
-        Image sixSprite   = new Image("C:\\MineSweeperProj\\MineSweeper\\Images\\SixSprite.png");
-        Image sevenSprite = new Image("C:\\MineSweeperProj\\MineSweeper\\Images\\SevenSprite.png");
-        Image eightSprite = new Image("C:\\MineSweeperProj\\MineSweeper\\Images\\EightSprite.png");
-        Image nineSprite  = new Image("C:\\MineSweeperProj\\MineSweeper\\Images\\NineSprite.png");
 
         displayTimeArray = new ImageView[3];
         for(int i = 0; i < 3; i++)
@@ -101,54 +94,55 @@ GameScene {
                                 numPlaces[0] = timerCount % 10;
                                 numPlaces[1] = (((timerCount - numPlaces[0])) % 100) / 10;
                                 numPlaces[2] = (timerCount - numPlaces[0] - (((timerCount - numPlaces[0])) % 100)) / 100;
-                                for(int iternator = 0; iternator < 3; iternator++)
+                                for(int iterator = 0; iterator < 3; iterator++)
                                 {
-                                    switch (numPlaces[iternator]) {
+                                    switch (numPlaces[iterator]) {
                                         case 0:
-                                            displayTimeArray[iternator].setImage(zeroSprite);
+                                            displayTimeArray[iterator].setImage(numberSprites.zeroSprite);
                                             break;
                                         case 1:
-                                            displayTimeArray[iternator].setImage(oneSprite);
+                                            displayTimeArray[iterator].setImage(numberSprites.oneSprite);
                                             break;
                                         case 2:
-                                            displayTimeArray[iternator].setImage(twoSprite);
+                                            displayTimeArray[iterator].setImage(numberSprites.twoSprite);
                                             break;
                                         case 3:
-                                            displayTimeArray[iternator].setImage(threeSprite);
+                                            displayTimeArray[iterator].setImage(numberSprites.threeSprite);
                                             break;
                                         case 4:
-                                            displayTimeArray[iternator].setImage(fourSprite);
+                                            displayTimeArray[iterator].setImage(numberSprites.fourSprite);
                                             break;
                                         case 5:
-                                            displayTimeArray[iternator].setImage(fiveSprite);
+                                            displayTimeArray[iterator].setImage(numberSprites.fiveSprite);
                                             break;
                                         case 6:
-                                            displayTimeArray[iternator].setImage(sixSprite);
+                                            displayTimeArray[iterator].setImage(numberSprites.sixSprite);
                                             break;
                                         case 7:
-                                            displayTimeArray[iternator].setImage(sevenSprite);
+                                            displayTimeArray[iterator].setImage(numberSprites.sevenSprite);
                                             break;
                                         case 8:
-                                            displayTimeArray[iternator].setImage(eightSprite);
+                                            displayTimeArray[iterator].setImage(numberSprites.eightSprite);
                                             break;
                                         case 9:
-                                            displayTimeArray[iternator].setImage(nineSprite);
+                                            displayTimeArray[iterator].setImage(numberSprites.nineSprite);
                                     }
                                 }
                             }
                         }));
 
-        displayFlagsArray = new ImageView[3];
-        for(int i = 0; i < 3; i++)
+        displayFlagsArray = new ImageView[2];
+        for(int i = 0; i < 2; i++)
         {
             displayFlagsArray[i] = new ImageView(new Image("C:\\MineSweeperProj\\MineSweeper\\Images\\NoNumberSprite.png"));
             displayFlagsArray[i].setLayoutY(24);
         }
-        displayFlagsArray[0].setLayoutX(xWindowWidth * 0.03);
-        displayFlagsArray[1].setLayoutX(xWindowWidth * 0.03 + 15);
-        displayFlagsArray[2].setLayoutX(xWindowWidth * 0.03 + 30);
+        displayFlagsArray[0].setLayoutX(xWindowWidth * 0.03 + 15);
+        displayFlagsArray[1].setLayoutX(xWindowWidth * 0.03);
 
         gameState = new GameState(boardSizeHeight, boardSizeWidth);
+        gameState.seedMines(mineCount);
+        flagCount = mineCount;
 
         mineSquare = new MineSquare[boardSizeHeight][boardSizeWidth];
         for(int rows = 0; rows < boardSizeHeight; rows++) {
@@ -165,38 +159,106 @@ GameScene {
         gridPane.setLayoutY(70);
         for(int rows = 0; rows < boardSizeHeight; rows++) {
             for (int columns = 0; columns < boardSizeWidth; columns++) {
-                gridPane.add(mineSquare[rows][columns],rows, columns);
+                gridPane.add(mineSquare[rows][columns],columns, rows); //organized as columns and then rows
             }
         }
 
-        Group gameBackGround = new Group(informationRectangle, centerBorder, outLine, tempButton, displayTimeArray[0],
-                displayTimeArray[1], displayTimeArray[2], displayFlagsArray[0], displayFlagsArray[1], displayFlagsArray[2], gridPane);
+        Group gameBackGround = new Group(informationRectangle, centerBorder, outLine, displayTimeArray[0],
+                displayTimeArray[1], displayTimeArray[2], displayFlagsArray[0], displayFlagsArray[1], gridPane);
         gameScene = new Scene(gameBackGround, 600, 500, Color.WHITESMOKE);
     }
 
     public Scene getGameScene() {
         timeline.playFromStart();
-
+        updateFlagCountDisplay();
         return gameScene;
     }
+    
+    private void updateFlagCountDisplay()
+    {
+        int [] minesLeftArray = new int [2];
+        minesLeftArray[0] = (flagCount == 1) ? 1 : flagCount % 10;
+        minesLeftArray[1] = (flagCount == 1) ? 0 : (flagCount - minesLeftArray[0]) / 10;
 
-    private void flagPlaced(int row, int column)
-    {
-        //fill in
-    }
-    private void squareClicked(MouseEvent event)
-    {
-        String id = ((MineSquare)event.getSource()).getId();
-        int row = Character.getNumericValue(id.charAt(0));
-        int column = Character.getNumericValue(id.charAt(2));
-        if(event.getButton() == MouseButton.PRIMARY) {
-            mineSquare[row][column].changeToUncoveredBlankSquare();
+        for(int iterator = 0; iterator < 2; iterator++)
+        {
+            switch (minesLeftArray[iterator]) {
+                case 0:
+                    displayFlagsArray[iterator].setImage(numberSprites.zeroSprite);
+                    break;
+                case 1:
+                    displayFlagsArray[iterator].setImage(numberSprites.oneSprite);
+                    break;
+                case 2:
+                    displayFlagsArray[iterator].setImage(numberSprites.twoSprite);
+                    break;
+                case 3:
+                    displayFlagsArray[iterator].setImage(numberSprites.threeSprite);
+                    break;
+                case 4:
+                    displayFlagsArray[iterator].setImage(numberSprites.fourSprite);
+                    break;
+                case 5:
+                    displayFlagsArray[iterator].setImage(numberSprites.fiveSprite);
+                    break;
+                case 6:
+                    displayFlagsArray[iterator].setImage(numberSprites.sixSprite);
+                    break;
+                case 7:
+                    displayFlagsArray[iterator].setImage(numberSprites.sevenSprite);
+                    break;
+                case 8:
+                    displayFlagsArray[iterator].setImage(numberSprites.eightSprite);
+                    break;
+                case 9:
+                    displayFlagsArray[iterator].setImage(numberSprites.nineSprite);
+            }
         }
-        if(event.getButton() == MouseButton.SECONDARY) {
-            if(mineSquare[row][column].getImage() == MineSquare.flagSquare)
-                mineSquare[row][column].changeToCoveredSquare();
-            else
-                mineSquare[row][column].changeToFlagSquare();
+    }
+
+    private void squareClicked(MouseEvent event) {
+        if (!gameOver) {
+            String id = ((MineSquare) event.getSource()).getId();
+            int row = Character.getNumericValue(id.charAt(0));
+            int column = Character.getNumericValue(id.charAt(2));
+            System.out.println("Row: " + row);
+            System.out.println("Column: " + column);
+            System.out.println(gameState.getaGridCord(column, row));
+            if (event.getButton() == MouseButton.PRIMARY) {
+                if (gameState.isMine(column, row)) // clicked on a mine
+                {
+                    System.out.println("MineSquare");
+                    timeline.stop();
+                    gameOver = true;
+                    didWin = false;
+                }
+                else { //did not click on a mine
+                    int numAdjMines = gameState.countAdjMines(column, row);
+                    if (numAdjMines > 0) //if the space has adjacent mines, do not clear anything
+                    {
+                        mineSquare[row][column].changeToNumberSquare(numAdjMines);
+                    }
+                    else //if the space does not have adjacent mines, clear spaces until clearing the area
+                    {
+                        //todo fill in
+                        System.out.println("BlankSquare");
+                    }
+                }
+            }
+            if (event.getButton() == MouseButton.SECONDARY) {
+                if (mineSquare[row][column].getImage() == MineSquare.flagSquare) {
+                    mineSquare[row][column].changeToCoveredSquare();
+                    gameState.flagSquare(row, column);//todo is this backwords?
+                    flagCount++;
+                } else {
+                    if (flagCount != 0) {
+                        mineSquare[row][column].changeToFlagSquare();
+                        gameState.flagSquare(row, column);//todo is this backwords?
+                        flagCount--;
+                    }
+                }
+            }
+            updateFlagCountDisplay();
         }
     }
 
