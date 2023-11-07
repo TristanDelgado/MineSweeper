@@ -30,19 +30,19 @@ import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 public class MineSquare extends ImageView{
 
-    Image coveredSquare;
-    Image uncoveredBlankSquare;
-    Image flagSquare;
-    Image mineSquare;
-    Image redMineSquare;
-    Image oneSquare;
-    Image twoSquare;
-    Image threeSquare;
-    Image fourSquare;
-    Image fiveSquare;
-    Image sixSquare;
-    Image sevenSquare;
-    Image eightSquare;
+    static public Image coveredSquare;
+    static public Image uncoveredBlankSquare;
+    static public Image flagSquare;
+    static public Image mineSquare;
+    static public Image redMineSquare;
+    static public Image oneSquare;
+    static public Image twoSquare;
+    static public Image threeSquare;
+    static public Image fourSquare;
+    static public Image fiveSquare;
+    static public Image sixSquare;
+    static public Image sevenSquare;
+    static public Image eightSquare;
 
 
     MineSquare()

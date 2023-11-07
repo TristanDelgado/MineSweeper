@@ -43,7 +43,7 @@ public class WinLoseScene {
         backToTitleButton.setPrefHeight(15);
         backToTitleButton.setPrefWidth(100);
 
-        quitButton = new Button("Quit Game");
+        quitButton = new Button("Quit");
         quitButton.setTextFill(Color.BLACK);
         quitButton.setBackground(Background.fill(Color.LIGHTBLUE));
         quitButton.setPrefHeight(15);

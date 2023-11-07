@@ -6,8 +6,6 @@ import javafx.scene.input.MouseEvent;
 
 public class GameDriver extends Application {
 
-    //Use properties/listeners to process resizing the window
-
     TitleScene titleScene;
     GameScene gameScene;
     WinLoseScene winLoseScene;

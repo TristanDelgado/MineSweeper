@@ -8,6 +8,7 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.scene.control.Button;
@@ -168,13 +169,22 @@ GameScene {
     public Scene getGameScene() {
         timeline.playFromStart();
 
-
         return gameScene;
     }
     private void squareClicked(MouseEvent event)
     {
-        System.out.println(((MineSquare)event.getSource()).getId());
-        System.out.println("Clicked");
+        String id = ((MineSquare)event.getSource()).getId();
+        int row = Character.getNumericValue(id.charAt(0));
+        int column = Character.getNumericValue(id.charAt(2));
+        if(event.getButton() == MouseButton.PRIMARY) {
+            mineSquare[row][column].changeToUncoveredBlankSquare();
+        }
+        if(event.getButton() == MouseButton.SECONDARY) {
+            if(mineSquare[row][column].getImage() == MineSquare.flagSquare)
+                mineSquare[row][column].changeToCoveredSquare();
+            else
+                mineSquare[row][column].changeToFlagSquare();
+        }
     }
 
 
