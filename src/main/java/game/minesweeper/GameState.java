@@ -7,15 +7,15 @@ public class GameState {
     //
     ArrayList<ArrayList<Character>> grid;
     int width, height;
-    GameState() {
+    GameState(int heightInput, int widthInput) {
         grid = new ArrayList<ArrayList<Character>>();
-        height = 10;
-        width = 10;
-        for(int i = 0; i < 10; i++) {
+        height = heightInput;
+        width = widthInput;
+        for(int i = 0; i < height; i++) {
             grid.add(new ArrayList<Character>());
         }
         grid.forEach((ArrayList<Character> element) -> {
-            for(int i = 0; i < 10; i++) {
+            for(int i = 0; i < width; i++) {
                 element.add('#');
             }
         });

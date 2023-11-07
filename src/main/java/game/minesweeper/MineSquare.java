@@ -28,9 +28,52 @@ import java.util.TimerTask;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
-public class MineSquare {
+public class MineSquare extends ImageView{
 
-    
+    static public Image coveredSquare;
+    static public Image uncoveredBlankSquare;
+    static public Image flagSquare;
+    static public Image mineSquare;
+    static public Image redMineSquare;
+    static public Image oneSquare;
+    static public Image twoSquare;
+    static public Image threeSquare;
+    static public Image fourSquare;
+    static public Image fiveSquare;
+    static public Image sixSquare;
+    static public Image sevenSquare;
+    static public Image eightSquare;
 
 
+    MineSquare()
+    {
+        coveredSquare        = new Image("C:\\MineSweeperProj\\MineSweeper\\Images\\CoveredSprite.png");
+        uncoveredBlankSquare = new Image("C:\\MineSweeperProj\\MineSweeper\\Images\\BlankSquareSprite.png");
+        flagSquare           = new Image("C:\\MineSweeperProj\\MineSweeper\\Images\\FlagSquareSprite.png");
+        mineSquare           = new Image("C:\\MineSweeperProj\\MineSweeper\\Images\\MineSquareSprite.png");
+        redMineSquare        = new Image("C:\\MineSweeperProj\\MineSweeper\\Images\\RedMineSquareSprite.png");
+        oneSquare            = new Image("C:\\MineSweeperProj\\MineSweeper\\Images\\OneSquareSprite.png");
+        twoSquare            = new Image("C:\\MineSweeperProj\\MineSweeper\\Images\\TwoSquareSprite.png");
+        threeSquare          = new Image("C:\\MineSweeperProj\\MineSweeper\\Images\\ThreeSquareSprite.png");
+        fourSquare           = new Image("C:\\MineSweeperProj\\MineSweeper\\Images\\FourSquareSprite.png");
+        fiveSquare           = new Image("C:\\MineSweeperProj\\MineSweeper\\Images\\FiveSquareSprite.png");
+        sixSquare            = new Image("C:\\MineSweeperProj\\MineSweeper\\Images\\SixSquareSprite.png");
+        sevenSquare          = new Image("C:\\MineSweeperProj\\MineSweeper\\Images\\SevenSquareSprite.png");
+        eightSquare          = new Image("C:\\MineSweeperProj\\MineSweeper\\Images\\EightSquareSprite.png");
+        this.setImage(coveredSquare);
+    }
+
+    public void changeToCoveredSquare() {this.setImage(coveredSquare);}
+    public void changeToUncoveredBlankSquare() {this.setImage(uncoveredBlankSquare);}
+    public void changeToFlagSquare() {this.setImage(flagSquare);}
+    public void changeToMineSquare() {this.setImage(mineSquare);}
+    public void changeToRedMineSquare() {this.setImage(redMineSquare);}
+    public void changeToOneSquare() {this.setImage(oneSquare);}
+    public void changeToTwoSquare() {this.setImage(twoSquare);}
+    public void changeToThreeSquare(){this.setImage(threeSquare);}
+    public void changeToFourSquare(){this.setImage(fourSquare);}
+    public void changeToFiveSquare(){this.setImage(fiveSquare);}
+    public void changeToSixSquare(){this.setImage(sixSquare);}
+    public void changeToSevenSquare(){this.setImage(sevenSquare);}
+    public void changeToEightSquare(){this.setImage(eightSquare);}
 }

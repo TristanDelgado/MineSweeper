@@ -6,8 +6,6 @@ import javafx.scene.input.MouseEvent;
 
 public class GameDriver extends Application {
 
-    //Use properties/listeners to process resizing the window
-
     TitleScene titleScene;
     GameScene gameScene;
     WinLoseScene winLoseScene;
@@ -17,7 +15,7 @@ public class GameDriver extends Application {
     public void start(Stage primaryStage){
         //For now the width and length will be set manually
         titleScene   = new TitleScene(600, 500);
-        gameScene    = new GameScene(600, 500, gameResult);
+        gameScene    = new GameScene(600, 500, gameResult, 10, 10);
         winLoseScene = new WinLoseScene(600, 500);
         stage        = new Stage();
 
@@ -49,29 +47,7 @@ public class GameDriver extends Application {
         stage.setScene(titleScene.getScene());
     }
 
-
     public static void main(String[] args) {
         launch();
     }
 }
-
-
-
-
-/*
-These are if you need to find start a new file.
-It's easier to just put all of them at the top and remove them later
-
-import javafx.application.Application;
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.Line;
-import javafx.scene.Group;
-import javafx.scene.paint.Color;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.shape.Circle;
-import java.util.Random;
-
- */
