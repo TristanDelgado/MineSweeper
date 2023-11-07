@@ -37,7 +37,8 @@ GameScene {
     double borderWidth = 8.0;
     public Scene gameScene;
     public Button tempButton;
-    ImageView [] displayNumbersArray;
+    ImageView [] displayTimeArray;
+    ImageView [] displayFlagsArray;
     Timeline timeline;
     int timerCount;
     GameState gameState;
@@ -78,18 +79,15 @@ GameScene {
         Image eightSprite = new Image("C:\\MineSweeperProj\\MineSweeper\\Images\\EightSprite.png");
         Image nineSprite  = new Image("C:\\MineSweeperProj\\MineSweeper\\Images\\NineSprite.png");
 
-        displayNumbersArray = new ImageView[3];
-        displayNumbersArray[0] = new ImageView(new Image("C:\\MineSweeperProj\\MineSweeper\\Images\\NoNumberSprite.png"));
-        displayNumbersArray[0].setLayoutX(xWindowWidth - (xWindowWidth * 0.03 + 15));
-        displayNumbersArray[0].setLayoutY(24);
-
-        displayNumbersArray[1] = new ImageView(new Image("C:\\MineSweeperProj\\MineSweeper\\Images\\NoNumberSprite.png"));
-        displayNumbersArray[1].setLayoutX(xWindowWidth - (xWindowWidth * 0.03 + 30));
-        displayNumbersArray[1].setLayoutY(24);
-
-        displayNumbersArray[2] = new ImageView(new Image("C:\\MineSweeperProj\\MineSweeper\\Images\\NoNumberSprite.png"));
-        displayNumbersArray[2].setLayoutX(xWindowWidth - (xWindowWidth * 0.03 + 45));
-        displayNumbersArray[2].setLayoutY(24);
+        displayTimeArray = new ImageView[3];
+        for(int i = 0; i < 3; i++)
+        {
+            displayTimeArray[i] = new ImageView(new Image("C:\\MineSweeperProj\\MineSweeper\\Images\\NoNumberSprite.png"));
+            displayTimeArray[i].setLayoutY(24);
+        }
+        displayTimeArray[0].setLayoutX(xWindowWidth - (xWindowWidth * 0.03 + 15));
+        displayTimeArray[1].setLayoutX(xWindowWidth - (xWindowWidth * 0.03 + 30));
+        displayTimeArray[2].setLayoutX(xWindowWidth - (xWindowWidth * 0.03 + 45));
 
         timeline = new Timeline();
         timeline.setCycleCount(Timeline.INDEFINITE);
@@ -107,38 +105,48 @@ GameScene {
                                 {
                                     switch (numPlaces[iternator]) {
                                         case 0:
-                                            displayNumbersArray[iternator].setImage(zeroSprite);
+                                            displayTimeArray[iternator].setImage(zeroSprite);
                                             break;
                                         case 1:
-                                            displayNumbersArray[iternator].setImage(oneSprite);
+                                            displayTimeArray[iternator].setImage(oneSprite);
                                             break;
                                         case 2:
-                                            displayNumbersArray[iternator].setImage(twoSprite);
+                                            displayTimeArray[iternator].setImage(twoSprite);
                                             break;
                                         case 3:
-                                            displayNumbersArray[iternator].setImage(threeSprite);
+                                            displayTimeArray[iternator].setImage(threeSprite);
                                             break;
                                         case 4:
-                                            displayNumbersArray[iternator].setImage(fourSprite);
+                                            displayTimeArray[iternator].setImage(fourSprite);
                                             break;
                                         case 5:
-                                            displayNumbersArray[iternator].setImage(fiveSprite);
+                                            displayTimeArray[iternator].setImage(fiveSprite);
                                             break;
                                         case 6:
-                                            displayNumbersArray[iternator].setImage(sixSprite);
+                                            displayTimeArray[iternator].setImage(sixSprite);
                                             break;
                                         case 7:
-                                            displayNumbersArray[iternator].setImage(sevenSprite);
+                                            displayTimeArray[iternator].setImage(sevenSprite);
                                             break;
                                         case 8:
-                                            displayNumbersArray[iternator].setImage(eightSprite);
+                                            displayTimeArray[iternator].setImage(eightSprite);
                                             break;
                                         case 9:
-                                            displayNumbersArray[iternator].setImage(nineSprite);
+                                            displayTimeArray[iternator].setImage(nineSprite);
                                     }
                                 }
                             }
                         }));
+
+        displayFlagsArray = new ImageView[3];
+        for(int i = 0; i < 3; i++)
+        {
+            displayFlagsArray[i] = new ImageView(new Image("C:\\MineSweeperProj\\MineSweeper\\Images\\NoNumberSprite.png"));
+            displayFlagsArray[i].setLayoutY(24);
+        }
+        displayFlagsArray[0].setLayoutX(xWindowWidth * 0.03);
+        displayFlagsArray[1].setLayoutX(xWindowWidth * 0.03 + 15);
+        displayFlagsArray[2].setLayoutX(xWindowWidth * 0.03 + 30);
 
         gameState = new GameState(boardSizeHeight, boardSizeWidth);
 
@@ -161,8 +169,8 @@ GameScene {
             }
         }
 
-        Group gameBackGround = new Group(informationRectangle, centerBorder, outLine, tempButton, displayNumbersArray[0],
-        displayNumbersArray[1], displayNumbersArray[2], gridPane);
+        Group gameBackGround = new Group(informationRectangle, centerBorder, outLine, tempButton, displayTimeArray[0],
+                displayTimeArray[1], displayTimeArray[2], displayFlagsArray[0], displayFlagsArray[1], displayFlagsArray[2], gridPane);
         gameScene = new Scene(gameBackGround, 600, 500, Color.WHITESMOKE);
     }
 
@@ -170,6 +178,11 @@ GameScene {
         timeline.playFromStart();
 
         return gameScene;
+    }
+
+    private void flagPlaced(int row, int column)
+    {
+        //fill in
     }
     private void squareClicked(MouseEvent event)
     {
