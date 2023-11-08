@@ -96,7 +96,7 @@ public class GameState {
         }
         for(int i = 0; i < height; i++) {
             for(int j = 0; j < width; j++) {
-                grid.get(i).set(j, Character.forDigit(countAdjMines(i,j), 10) );
+                if(grid.get(i).get(j) != 'x') grid.get(i).set(j, Character.forDigit(countAdjMines(i,j), 10) );
             }
          }
     }
