@@ -43,7 +43,7 @@ public class GameState {
         }
 
         // Check left
-        if (!(y - 1 < 0) && (grid.get(x).get(y - 1) == 'x' || grid.get(x).get(y - 1) == 'X')) {
+        if (!(x - 1 < 0) && (grid.get(x - 1).get(y) == 'x' || grid.get(x - 1).get(y) == 'X')) {
             res++;
         }
 
