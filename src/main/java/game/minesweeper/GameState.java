@@ -90,6 +90,7 @@ public class GameState {
 
         return res;
     }
+    //e
     void seedMines(int num) {
         Random random = new Random();
         for (int i = 0; i < num; i++) {
