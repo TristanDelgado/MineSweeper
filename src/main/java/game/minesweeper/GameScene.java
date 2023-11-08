@@ -225,35 +225,40 @@ GameScene {
             System.out.println("Column: " + column);
             System.out.println(gameState.getaGridCord(column, row));
             if (event.getButton() == MouseButton.PRIMARY) {
-                if (gameState.isMine(column, row)) // clicked on a mine
+                if(!(mineSquare[row][column].getImage() == MineSquare.flagSquare))
                 {
-                    System.out.println("MineSquare");
-                    //timeline.stop();
-                    //gameOver = true;
-                    //didWin = false;
-                }
-                else { //did not click on a mine
-                    int numAdjMines = gameState.countAdjMines(column, row);
-                    if (numAdjMines > 0) //if the space has adjacent mines, do not clear anything
+                    if (gameState.isMine(column, row)) // clicked on a mine
                     {
-                        mineSquare[row][column].changeToNumberSquare(numAdjMines);
+                        System.out.println("MineSquare");
+                        //timeline.stop();
+                        //gameOver = true;
+                        //didWin = false;
                     }
-                    else //if the space does not have adjacent mines, clear spaces until clearing the area
-                    {
-                        //todo fill in
-                        System.out.println("BlankSquare");
+                    else { //did not click on a mine
+                        int numAdjMines = gameState.countAdjMines(column, row);
+                        if (numAdjMines > 0) //if the space has adjacent mines, do not clear anything
+                        {
+                            mineSquare[row][column].changeToNumberSquare(numAdjMines);
+                        }
+                        else //if the space does not have adjacent mines, clear spaces until clearing the area
+                        {
+                            //todo fill in
+                            mineSquare[row][column].changeToUncoveredBlankSquare();
+                            System.out.println("BlankSquare");
+                        }
                     }
                 }
+
             }
             if (event.getButton() == MouseButton.SECONDARY) {
                 if (mineSquare[row][column].getImage() == MineSquare.flagSquare) {
                     mineSquare[row][column].changeToCoveredSquare();
-                    gameState.flagSquare(row, column);//todo is this backwords?
+                    gameState.flagSquare(row, column);
                     flagCount++;
                 } else {
-                    if (flagCount != 0) {
+                    if (flagCount != 0 && !(mineSquare[row][column].getImage() == MineSquare.uncoveredBlankSquare)) {
                         mineSquare[row][column].changeToFlagSquare();
-                        gameState.flagSquare(row, column);//todo is this backwords?
+                        gameState.flagSquare(row, column);
                         flagCount--;
                     }
                 }
