@@ -31,7 +31,10 @@ public class GameState {
     }
     int countAdjMines(int x, int y) {
         int res = 0;
-        // Check top-left
+        // Check top
+        if (!(y + 1 < 0) && (grid.get(x).get(y + 1) == 'x' || grid.get(x).get(y + 1) == 'X')) {
+            res++;
+        }
         // Check top-left
         if (!(x - 1 < 0) && !(y - 1 < 0) && (grid.get(x - 1).get(y - 1) == 'x' || grid.get(x - 1).get(y - 1) == 'X')) {
             res++;
