@@ -228,9 +228,9 @@ GameScene {
                 if (gameState.isMine(column, row)) // clicked on a mine
                 {
                     System.out.println("MineSquare");
-                    timeline.stop();
-                    gameOver = true;
-                    didWin = false;
+                    //timeline.stop();
+                    //gameOver = true;
+                    //didWin = false;
                 }
                 else { //did not click on a mine
                     int numAdjMines = gameState.countAdjMines(column, row);
