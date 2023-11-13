@@ -19,6 +19,8 @@ public class WinLoseScene {
     private Button quitButton;
     private Text winText;
     private Text loseText;
+    private Text timeElapsed;
+    private Text timeElapsedLabel;
     WinLoseScene(double xWindowWidth, double yWindowWidth)
     {
         winText = new Text("You Win!");
@@ -50,17 +52,30 @@ public class WinLoseScene {
         quitButton.setPrefWidth(100);
         quitButton.setOnMouseClicked(this::exitButtonClicked);
 
+        timeElapsedLabel = new Text("Time Elapsed: ");
+        timeElapsedLabel.setFont(Font.font("Agency FB", 30));
+        timeElapsedLabel.setFill(Color.BLACK);
+        timeElapsedLabel.setLayoutX(160);
+        timeElapsedLabel.setLayoutY(yWindowWidth/1.5);
+
+        timeElapsed = new Text("Temp");
+        timeElapsed.setFont(Font.font("Agency FB", 30));
+        timeElapsed.setFill(Color.BLACK);
+        timeElapsed.setLayoutX(300);
+        timeElapsed.setLayoutY(yWindowWidth/1.5);
+
 
         HBox winHBox = new HBox(backToTitleButton, quitButton);
-        winHBox.setLayoutX((xWindowWidth - 220)/2); //The 220 is 100 for each button and 20 for spacing
+        winHBox.setLayoutX((xWindowWidth - 220)/2); //The 220 is 100 for each button and 20 for spcing
         winHBox.setLayoutY(yWindowWidth - (yWindowWidth * (2.0/3.0)));
         winHBox.setSpacing(20);
 
-        endScreenGroup  = new Group(winHBox);
-        endScreenScene  = new Scene(endScreenGroup,  xWindowWidth, yWindowWidth, Color.GRAY);
+        endScreenGroup  = new Group(winHBox, timeElapsedLabel, timeElapsed);
+        endScreenScene  = new Scene(endScreenGroup,  xWindowWidth, yWindowWidth,
+                Color.GRAY);
     }
 
-    public Scene getWinScene(){
+    public Scene getWinScene(int timeElapsedTemp){
         if(endScreenGroup.getChildren().contains(loseText))
         {
             endScreenGroup.getChildren().remove(loseText);
@@ -69,9 +84,10 @@ public class WinLoseScene {
         {
             endScreenGroup.getChildren().add(winText);
         }
+        timeElapsed.setText(String.valueOf(timeElapsedTemp));
         return endScreenScene;
     }
-    public Scene getLoseScene(){
+    public Scene getLoseScene(int timeElapsedTemp){
         if(endScreenGroup.getChildren().contains(winText))
         {
             endScreenGroup.getChildren().remove(winText);
@@ -80,6 +96,8 @@ public class WinLoseScene {
         {
             endScreenGroup.getChildren().add(loseText);
         }
+        System.out.println("Value Of: " + String.valueOf(timeElapsedTemp));
+        timeElapsed.setText(String.valueOf(timeElapsedTemp));
         return endScreenScene;
     }
     private void exitButtonClicked(MouseEvent event)

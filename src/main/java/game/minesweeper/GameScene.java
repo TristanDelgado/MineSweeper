@@ -51,6 +51,7 @@ GameScene {
     int boardSizeWidth;
     boolean gameOver;
     boolean didWin;
+    boolean gameCurrentlyRunning;
     GameResult gameResult;
 
     GameScene(double xWindowWidth, double yWindowWidth, int boardSizeHeight, int boardSizeWidth, int mineCount, GameResult gameResult) {
@@ -58,6 +59,7 @@ GameScene {
         this.boardSizeHeight = boardSizeHeight;
         this.boardSizeWidth = boardSizeWidth;
         this.gameResult = gameResult;
+        this.gameCurrentlyRunning = true;
 
         Rectangle outLine = new Rectangle(borderWidth / 2, borderWidth / 2, xWindowWidth - ((borderWidth / 2) * 2), yWindowWidth - ((borderWidth / 2) * 2));
         //For the upper left start point the borderWidth/2 gives the
@@ -78,7 +80,6 @@ GameScene {
         checkVictory = new Button("Check Victory");
         checkVictory.setLayoutX(xWindowWidth/2 - 45);
         checkVictory.setLayoutY(25);
-        checkVictory.setOnMouseClicked(this::checkVictoryButtonPush);
 
         displayTimeArray = new ImageView[3];
         for(int i = 0; i < 3; i++)
@@ -312,32 +313,20 @@ GameScene {
         }
     }
 
-    void checkVictoryButtonPush(MouseEvent event)
+    public void checkVictory()
     {
-        System.out.println("CheckVictoryButtonPushed");
         if(gameState.isVictory())
         {
-            System.out.println("isVictoryWorks");
             gameResult.didWin = true;
             timeline.stop();
             gameResult.timeToCompleteGame = timerCount;
-            gameResult.gameFinished = true;
         }
         else
         {
-            System.out.println("InElseArea");
             gameResult.didWin = false;
             timeline.stop();
             gameResult.timeToCompleteGame = timerCount;
-            gameResult.gameFinished = true;
         }
-
-        /*
-        Notes:
-        Duplicate places getting seeded with a mine
-        isVictory not working correctly
-
-         */
     }
 
 

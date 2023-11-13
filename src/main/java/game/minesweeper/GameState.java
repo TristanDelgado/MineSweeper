@@ -84,7 +84,6 @@ public class GameState {
         for (int i = 0 ; i < height && res; i++) {
             for(int j = 0; j < width && res; j++) {
                 if(grid.get(i).get(j) == 'y' || grid.get(i).get(j) == 'x') {
-                    System.out.println("REACHED!");
                     res = false;
                     break;
                 }
