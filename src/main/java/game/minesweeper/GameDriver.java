@@ -5,18 +5,22 @@ import javafx.stage.Stage;
 import javafx.scene.input.MouseEvent;
 
 public class GameDriver extends Application {
-
     TitleScene titleScene;
     GameScene gameScene;
     WinLoseScene winLoseScene;
     Stage stage;
-    boolean gameResult;
+    GameResult gameResult;
     public void start(Stage primaryStage){
-        //For now the width and length will be set manually
+        gameResult   = new GameResult();
         titleScene   = new TitleScene(600, 500);
-        gameScene    = new GameScene(600, 500, gameResult, 10, 10, 10);
+        gameScene    = new GameScene(600, 500, 10, 10, 10, gameResult);
         winLoseScene = new WinLoseScene(600, 500);
         stage        = new Stage();
+
+        if(!gameResult.gameFinished)
+        {
+            stage.setScene(winLoseScene.getLoseScene());
+        }
 
         titleScene.startGameButton.setOnMouseClicked(this::startGameButtonPushed);
         winLoseScene.backToTitleButton.setOnMouseClicked(this::backToTitleButtonPushed);

@@ -25,6 +25,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Circle;
 import javafx.stage.Window;
+
+import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
 import javafx.scene.image.Image;
@@ -36,7 +38,7 @@ public class
 GameScene {
     double borderWidth = 8.0;
     public Scene gameScene;
-    public Button tempButton;
+    public Button checkVictory;
     ImageView [] displayTimeArray;
     ImageView [] displayFlagsArray;
     Timeline timeline;
@@ -49,12 +51,13 @@ GameScene {
     int boardSizeWidth;
     boolean gameOver;
     boolean didWin;
+    GameResult gameResult;
 
-    GameScene(double xWindowWidth, double yWindowWidth, boolean gameResult, int boardSizeHeight, int boardSizeWidth, int mineCount) {
+    GameScene(double xWindowWidth, double yWindowWidth, int boardSizeHeight, int boardSizeWidth, int mineCount, GameResult gameResult) {
         numberSprites = new NumberSprites();
         this.boardSizeHeight = boardSizeHeight;
         this.boardSizeWidth = boardSizeWidth;
-        gameOver = false;
+        this.gameResult = gameResult;
 
         Rectangle outLine = new Rectangle(borderWidth / 2, borderWidth / 2, xWindowWidth - ((borderWidth / 2) * 2), yWindowWidth - ((borderWidth / 2) * 2));
         //For the upper left start point the borderWidth/2 gives the
@@ -71,6 +74,11 @@ GameScene {
 
         Rectangle informationRectangle = new Rectangle(0, 0, 600, 62);
         informationRectangle.setFill(Color.BLUE);
+
+        checkVictory = new Button("Check Victory");
+        checkVictory.setLayoutX(xWindowWidth/2 - 45);
+        checkVictory.setLayoutY(25);
+        checkVictory.setOnMouseClicked(this::checkVictoryButtonPush);
 
         displayTimeArray = new ImageView[3];
         for(int i = 0; i < 3; i++)
@@ -151,6 +159,8 @@ GameScene {
                 mineSquare[rows][columns] = new MineSquare();
                 mineSquare[rows][columns].setId("" + rows + " " + columns);
                 mineSquare[rows][columns].setOnMouseClicked(this::squareClicked);
+                mineSquare[rows][columns].setFitWidth((xWindowWidth - (borderWidth * 2 + 1))/boardSizeWidth);
+                mineSquare[rows][columns].setFitHeight((yWindowWidth - 78)/boardSizeHeight);
             }
         }
 
@@ -164,7 +174,7 @@ GameScene {
         }
 
         Group gameBackGround = new Group(informationRectangle, centerBorder, outLine, displayTimeArray[0],
-                displayTimeArray[1], displayTimeArray[2], displayFlagsArray[0], displayFlagsArray[1], gridPane);
+                displayTimeArray[1], displayTimeArray[2], displayFlagsArray[0], displayFlagsArray[1], checkVictory, gridPane);
         gameScene = new Scene(gameBackGround, 600, 500, Color.WHITESMOKE);
     }
 
@@ -215,12 +225,42 @@ GameScene {
             }
         }
     }
+    private void clearAdjacentMines(int row, int column)
+    {
+        mineSquare[row][column].changeToUncoveredBlankSquare();
+        for(int rowTemp = -1; rowTemp < 3; rowTemp++)
+        {
+            for(int columnTemp = -1; columnTemp < 3; columnTemp++)
+            {
+                if((row == 0 && rowTemp == -1) || (column == 0 && columnTemp == -1))
+                    continue;
+                if(row == 19 && rowTemp == 1 || column == 19 && columnTemp == 1)
+                    continue;
+                if(rowTemp == 0 && columnTemp == 0)
+                    continue;
+                System.out.println(gameState.getaGridCord(row + rowTemp, column + columnTemp));
+                if(Character.getNumericValue(gameState.getaGridCord(row + rowTemp, column + columnTemp)) == 0)
+                {
+                    System.out.println("here");
+                    mineSquare[row + rowTemp][column + columnTemp].changeToUncoveredBlankSquare();
+
+                }
+                else {
+                    if(Character.getNumericValue(gameState.getaGridCord(row + rowTemp, column + columnTemp)) > 0)
+                    {
+                        mineSquare[row][column].changeToNumberSquare(gameState.getaGridCord(row + rowTemp, column + columnTemp));
+                    }
+                }
+            }
+        }
+    }
 
     private void squareClicked(MouseEvent event) {
         if (!gameOver) {
             String id = ((MineSquare) event.getSource()).getId();
-            int row = Character.getNumericValue(id.charAt(0));
-            int column = Character.getNumericValue(id.charAt(2));
+            Scanner sc = new Scanner(id);
+            int row = sc.nextInt();
+            int column = sc.nextInt();
             System.out.println("Row: " + row);
             System.out.println("Column: " + column);
             System.out.println(gameState.getaGridCord(column, row));
@@ -230,20 +270,25 @@ GameScene {
                     if (gameState.isMine(column, row)) // clicked on a mine
                     {
                         System.out.println("MineSquare");
-                        //timeline.stop();
-                        //gameOver = true;
-                        //didWin = false;
+                        /*
+                        gameOver = true;
+                        timeline.stop();
+                        gameResult.timeToCompleteGame = timerCount;
+                        gameResult.didWin = false;
+
+                         */
                     }
                     else { //did not click on a mine
                         int numAdjMines = gameState.countAdjMines(column, row);
                         if (numAdjMines > 0) //if the space has adjacent mines, do not clear anything
                         {
                             mineSquare[row][column].changeToNumberSquare(numAdjMines);
+
                         }
                         else //if the space does not have adjacent mines, clear spaces until clearing the area
                         {
-                            //todo fill in
                             mineSquare[row][column].changeToUncoveredBlankSquare();
+                            //clearAdjacentMines(row, column);
                             System.out.println("BlankSquare");
                         }
                     }
@@ -267,8 +312,34 @@ GameScene {
         }
     }
 
+    void checkVictoryButtonPush(MouseEvent event)
+    {
+        System.out.println("CheckVictoryButtonPushed");
+        if(gameState.isVictory())
+        {
+            System.out.println("isVictoryWorks");
+            gameResult.didWin = true;
+            timeline.stop();
+            gameResult.timeToCompleteGame = timerCount;
+            gameResult.gameFinished = true;
+        }
+        else
+        {
+            System.out.println("InElseArea");
+            gameResult.didWin = false;
+            timeline.stop();
+            gameResult.timeToCompleteGame = timerCount;
+            gameResult.gameFinished = true;
+        }
+
+        /*
+        Notes:
+        Duplicate places getting seeded with a mine
+        isVictory not working correctly
+
+         */
+    }
+
 
 }
-
-
 
