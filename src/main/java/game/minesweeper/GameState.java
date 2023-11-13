@@ -101,14 +101,12 @@ public class GameState {
         for (int i = 0; i < num; i++) {
             int rx = random.nextInt(height);
             int ry = random.nextInt(width);
-            int[] ccord = new int[2];
-            ccord[0] = rx;
-            ccord[1] = ry;
+            int[] ccord = {rx,ry};
             for (int j = 0; j < 2; j++) {
-                if(cords.get(j)[0] == ccord[0] && cords.get(j)[1] == ccord[1]) {
-                    cords.add(ccord);
-                    grid.get(rx).set(ry, 'x');
-                }
+                    if(cords.get(j)[0] == ccord[0] && cords.get(j)[1] == ccord[1]) {
+                        cords.add(ccord);
+                        grid.get(rx).set(ry, 'x');
+                    }
             }
 
         }
