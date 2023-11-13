@@ -31,8 +31,8 @@ public class GameState {
     }
     int countAdjMines(int x, int y) {
         int res = 0;
-        // Check top
-        if (((!(x - 1 < 0) && !(y - 1 < 0)) && (grid.get(x).get(y - 1 ) == 'x' || grid.get(x).get(y - 1) == 'X'))) {
+        // Check top - removed the check for x out of bounds as it is not needed - Delgado
+        if (((!(y - 1 < 0)) && (grid.get(x).get(y - 1 ) == 'x' || grid.get(x).get(y - 1) == 'X'))) {
             res++;
         }
         // Check top-left

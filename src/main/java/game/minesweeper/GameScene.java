@@ -239,7 +239,7 @@ GameScene {
                 if(rowTemp == 0 && columnTemp == 0)
                     continue;
                 System.out.println(gameState.getaGridCord(row + rowTemp, column + columnTemp));
-                if(Character.getNumericValue(gameState.getaGridCord(row + rowTemp, column + columnTemp)) == 0)
+                if(Character.getNumericValue(gameState.getaGridCord(column + rowTemp, row + columnTemp)) == 0)
                 {
                     System.out.println("here");
                     mineSquare[row + rowTemp][column + columnTemp].changeToUncoveredBlankSquare();
@@ -263,7 +263,7 @@ GameScene {
             int column = sc.nextInt();
             System.out.println("Row: " + row);
             System.out.println("Column: " + column);
-            System.out.println(gameState.getaGridCord(column, row));
+            System.out.println("Before: " + gameState.getaGridCord(column, row));
             if (event.getButton() == MouseButton.PRIMARY) {
                 if(!(mineSquare[row][column].getImage() == MineSquare.flagSquare))
                 {
@@ -298,12 +298,12 @@ GameScene {
             if (event.getButton() == MouseButton.SECONDARY) {
                 if (mineSquare[row][column].getImage() == MineSquare.flagSquare) {
                     mineSquare[row][column].changeToCoveredSquare();
-                    gameState.flagSquare(row, column);
+                    gameState.flagSquare(column, row);
                     flagCount++;
                 } else {
                     if (flagCount != 0 && !(mineSquare[row][column].getImage() == MineSquare.uncoveredBlankSquare)) {
                         mineSquare[row][column].changeToFlagSquare();
-                        gameState.flagSquare(row, column);
+                        gameState.flagSquare(column, row);
                         flagCount--;
                     }
                 }
