@@ -96,7 +96,7 @@ public class GameState {
     //e
     void seedMines(int num) {
         ArrayList<int[]> cords = new ArrayList<int[]>();
-
+        cords.add(new int[]{-1,-1});
         Random random = new Random();
         for (int i = 0; i < num; i++) {
             int rx = random.nextInt(height);
