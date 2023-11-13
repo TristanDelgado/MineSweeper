@@ -79,11 +79,11 @@ public class GameState {
         boolean res = true;
 
         parent:
-        for (int i = 0 ; i < height; i++) {
-            for(int j = 0; j < width; j++) {
+        for (int i = 0 ; i < height && res; i++) {
+            for(int j = 0; j < width && res; j++) {
                 if(grid.get(i).get(j) == 'y' || grid.get(i).get(j) == 'x') {
                     res = false;
-                    break parent;
+                    break;
                 }
             }
         }
