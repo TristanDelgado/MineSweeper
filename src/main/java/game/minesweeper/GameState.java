@@ -73,7 +73,9 @@ public class GameState {
         return res;
     }
     boolean isMine(int x, int y) {
+        System.out.println("isMineCordGet:" + Character.toString(grid.get(x).get(y)));
         return (grid.get(x).get(y) == 'x' ||  grid.get(x).get(y) == 'X');
+
     }
     boolean isVictory() {
         boolean res = true;
