@@ -95,12 +95,22 @@ public class GameState {
     }
     //e
     void seedMines(int num) {
-        //ArrayList<int[]> cords = new ArrayList<int[]>();
+        ArrayList<int[]> cords = new ArrayList<int[]>();
+
         Random random = new Random();
         for (int i = 0; i < num; i++) {
             int rx = random.nextInt(height);
             int ry = random.nextInt(width);
-            grid.get(rx).set(ry, 'x');
+            int[] ccord = new int[2];
+            ccord[0] = rx;
+            ccord[1] = ry;
+            for (int j = 0; j < 2; j++) {
+                if(cords.get(j)[0] == ccord[0] && cords.get(j)[1] == ccord[1]) {
+                    cords.add(ccord);
+                    grid.get(rx).set(ry, 'x');
+                }
+            }
+
         }
         for(int i = 0; i < height; i++) {
             for(int j = 0; j < width; j++) {
