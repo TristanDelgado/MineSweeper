@@ -103,7 +103,7 @@ public class GameState {
             int ry = random.nextInt(width);
             int[] ccord = {rx,ry};
             for (int j = 0; j < cords.size(); j++) {
-                    if(cords.get(j)[0] == ccord[0] && cords.get(j)[1] == ccord[1]) {
+                    if(!(cords.get(j)[0] == ccord[0] && cords.get(j)[1] == ccord[1])) {
                         cords.add(ccord);
                         grid.get(rx).set(ry, 'x');
                     }
