@@ -1,37 +1,22 @@
 package game.minesweeper;
 
-import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.event.EventHandler;
-import javafx.geometry.Pos;
 import javafx.scene.Group;
-import javafx.scene.input.MouseButton;
-import javafx.scene.layout.GridPane;
-import javafx.scene.text.Text;
-import javafx.scene.control.Button;
-import javafx.scene.layout.HBox;
-import javafx.event.ActionEvent;
-import javafx.application.Application;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.stage.Stage;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.Line;
-import javafx.scene.Group;
-import javafx.scene.paint.Color;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.shape.Circle;
-import javafx.stage.Window;
-
-import java.util.Scanner;
-import java.util.Timer;
-import java.util.TimerTask;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
+
+import java.util.Scanner;
 
 public class
 
@@ -50,18 +35,17 @@ GameScene {
     int boardSizeHeight;
     int boardSizeWidth;
     boolean gameOver;
-    boolean didWin;
     boolean gameCurrentlyRunning;
     GameResult gameResult;
 
-    GameScene(double xWindowWidth, double yWindowWidth, int boardSizeHeight, int boardSizeWidth, int mineCount, GameResult gameResult) {
+    GameScene(double windowWidth, double windowHeight, int boardSizeHeight, int boardSizeWidth, int mineCount, GameResult gameResult) {
         numberSprites = new NumberSprites();
         this.boardSizeHeight = boardSizeHeight;
         this.boardSizeWidth = boardSizeWidth;
         this.gameResult = gameResult;
         this.gameCurrentlyRunning = true;
 
-        Rectangle outLine = new Rectangle(borderWidth / 2, borderWidth / 2, xWindowWidth - ((borderWidth / 2) * 2), yWindowWidth - ((borderWidth / 2) * 2));
+        Rectangle outLine = new Rectangle(borderWidth / 2, borderWidth / 2, windowWidth - ((borderWidth / 2) * 2), windowHeight - ((borderWidth / 2) * 2));
         //For the upper left start point the borderWidth/2 gives the
         //stroke enough room to show the whole stroke.
         //For the bottom right corner the borderWidth/2 must be multiplied by two
@@ -71,14 +55,14 @@ GameScene {
         outLine.setFill(Color.TRANSPARENT);
 
 
-        Rectangle centerBorder = new Rectangle(0, 62, xWindowWidth, borderWidth);
+        Rectangle centerBorder = new Rectangle(0, 62, windowWidth, borderWidth);
         centerBorder.setFill(Color.GRAY);
 
         Rectangle informationRectangle = new Rectangle(0, 0, 600, 62);
         informationRectangle.setFill(Color.BLUE);
 
-        checkVictory = new Button("Check Victory");
-        checkVictory.setLayoutX(xWindowWidth/2 - 45);
+        checkVictory = new Button("Submit");
+        checkVictory.setLayoutX(windowWidth/2 - 45);
         checkVictory.setLayoutY(25);
 
         displayTimeArray = new ImageView[3];
@@ -87,9 +71,9 @@ GameScene {
             displayTimeArray[i] = new ImageView(new Image("C:\\MineSweeperProj\\MineSweeper\\Images\\NoNumberSprite.png"));
             displayTimeArray[i].setLayoutY(24);
         }
-        displayTimeArray[0].setLayoutX(xWindowWidth - (xWindowWidth * 0.03 + 15));
-        displayTimeArray[1].setLayoutX(xWindowWidth - (xWindowWidth * 0.03 + 30));
-        displayTimeArray[2].setLayoutX(xWindowWidth - (xWindowWidth * 0.03 + 45));
+        displayTimeArray[0].setLayoutX(windowWidth - (windowWidth * 0.03 + 15));
+        displayTimeArray[1].setLayoutX(windowWidth - (windowWidth * 0.03 + 30));
+        displayTimeArray[2].setLayoutX(windowWidth - (windowWidth * 0.03 + 45));
 
         timeline = new Timeline();
         timeline.setCycleCount(Timeline.INDEFINITE);
@@ -146,8 +130,8 @@ GameScene {
             displayFlagsArray[i] = new ImageView(new Image("C:\\MineSweeperProj\\MineSweeper\\Images\\NoNumberSprite.png"));
             displayFlagsArray[i].setLayoutY(24);
         }
-        displayFlagsArray[0].setLayoutX(xWindowWidth * 0.03 + 15);
-        displayFlagsArray[1].setLayoutX(xWindowWidth * 0.03);
+        displayFlagsArray[0].setLayoutX(windowWidth * 0.03 + 15);
+        displayFlagsArray[1].setLayoutX(windowWidth * 0.03);
 
         gameState = new GameState(boardSizeHeight, boardSizeWidth);
         gameState.seedMines(mineCount);
@@ -158,10 +142,11 @@ GameScene {
             for(int columns = 0; columns < boardSizeWidth; columns++)
             {
                 mineSquare[rows][columns] = new MineSquare();
+                mineSquare[rows][columns].changeToCoveredSquare();
                 mineSquare[rows][columns].setId("" + rows + " " + columns);
                 mineSquare[rows][columns].setOnMouseClicked(this::squareClicked);
-                mineSquare[rows][columns].setFitWidth((xWindowWidth - (borderWidth * 2 + 1))/boardSizeWidth);
-                mineSquare[rows][columns].setFitHeight((yWindowWidth - 78)/boardSizeHeight);
+                mineSquare[rows][columns].setFitWidth((windowWidth - (borderWidth * 2 + 1))/boardSizeWidth);
+                mineSquare[rows][columns].setFitHeight((windowHeight - 78)/boardSizeHeight);
             }
         }
 
@@ -226,34 +211,32 @@ GameScene {
             }
         }
     }
-    private void clearAdjacentMines(int row, int column)
+    private void clearAdjacentSquares(int row, int column) //todo finish this
     {
-        mineSquare[row][column].changeToUncoveredBlankSquare();
-        for(int rowTemp = -1; rowTemp < 3; rowTemp++)
+        System.out.println("In function");
+        if(row < 0 || column < 0 || row > boardSizeHeight - 1 || column > boardSizeWidth - 1)
         {
-            for(int columnTemp = -1; columnTemp < 3; columnTemp++)
-            {
-                if((row == 0 && rowTemp == -1) || (column == 0 && columnTemp == -1))
-                    continue;
-                if(row == 19 && rowTemp == 1 || column == 19 && columnTemp == 1)
-                    continue;
-                if(rowTemp == 0 && columnTemp == 0)
-                    continue;
-                System.out.println(gameState.getaGridCord(row + rowTemp, column + columnTemp));
-                if(Character.getNumericValue(gameState.getaGridCord(column + rowTemp, row + columnTemp)) == 0)
-                {
-                    System.out.println("here");
-                    mineSquare[row + rowTemp][column + columnTemp].changeToUncoveredBlankSquare();
-
-                }
-                else {
-                    if(Character.getNumericValue(gameState.getaGridCord(row + rowTemp, column + columnTemp)) > 0)
-                    {
-                        mineSquare[row][column].changeToNumberSquare(gameState.getaGridCord(row + rowTemp, column + columnTemp));
-                    }
-                }
-            }
+            System.out.println("In one");
+            return;
         }
+        if(mineSquare[row][column].getImage() == MineSquare.uncoveredBlankSquare)
+        {
+            System.out.println("In two");
+            return;
+        }
+        int adjMines = gameState.countAdjMines(column, row);
+        if(adjMines > 0)
+        {
+            System.out.println("in three");
+            mineSquare[row][column].changeToNumberSquare(adjMines);
+            return;
+        }
+        System.out.println("exiting");
+        mineSquare[row][column].changeToUncoveredBlankSquare();
+        clearAdjacentSquares(row - 1, column);
+        clearAdjacentSquares(row + 1, column);
+        clearAdjacentSquares(row, column - 1);
+        clearAdjacentSquares(row, column + 1);
     }
 
     private void squareClicked(MouseEvent event) {
@@ -270,26 +253,22 @@ GameScene {
                 {
                     if (gameState.isMine(column, row)) // clicked on a mine
                     {
-                        System.out.println("MineSquare");
-                        /*
+                        mineSquare[row][column].changeToRedMineSquare();
+                        checkVictory.setText("You lost, end game?");
                         gameOver = true;
                         timeline.stop();
                         gameResult.timeToCompleteGame = timerCount;
                         gameResult.didWin = false;
-
-                         */
                     }
                     else { //did not click on a mine
                         int numAdjMines = gameState.countAdjMines(column, row);
                         if (numAdjMines > 0) //if the space has adjacent mines, do not clear anything
                         {
                             mineSquare[row][column].changeToNumberSquare(numAdjMines);
-
                         }
                         else //if the space does not have adjacent mines, clear spaces until clearing the area
                         {
-                            mineSquare[row][column].changeToUncoveredBlankSquare();
-                            //clearAdjacentMines(row, column);
+                            clearAdjacentSquares(row, column);
                             System.out.println("BlankSquare");
                         }
                     }
@@ -301,8 +280,10 @@ GameScene {
                     mineSquare[row][column].changeToCoveredSquare();
                     gameState.flagSquare(column, row);
                     flagCount++;
-                } else {
-                    if (flagCount != 0 && !(mineSquare[row][column].getImage() == MineSquare.uncoveredBlankSquare)) {
+                }
+                else {
+                    if (flagCount >= 0){ //todo why won't this work. mineSquare[row][column].getImage() == MineSquare.coveredSquare) {
+                        System.out.println("here2");
                         mineSquare[row][column].changeToFlagSquare();
                         gameState.flagSquare(column, row);
                         flagCount--;
@@ -310,6 +291,7 @@ GameScene {
                 }
             }
             updateFlagCountDisplay();
+
         }
     }
 
@@ -328,7 +310,5 @@ GameScene {
             gameResult.timeToCompleteGame = timerCount;
         }
     }
-
-
 }
 

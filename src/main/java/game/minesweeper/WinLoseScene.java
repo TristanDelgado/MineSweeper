@@ -1,10 +1,8 @@
 package game.minesweeper;
 
-import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
-import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.control.Button;
@@ -99,6 +97,36 @@ public class WinLoseScene {
         System.out.println("Value Of: " + String.valueOf(timeElapsedTemp));
         timeElapsed.setText(String.valueOf(timeElapsedTemp));
         return endScreenScene;
+    }
+
+    public Scene getEndScreenScene(GameResult gameResult)
+    {
+        if(gameResult.didWin)
+        {
+            if(endScreenGroup.getChildren().contains(loseText))
+            {
+                endScreenGroup.getChildren().remove(loseText);
+            }
+            if(!endScreenGroup.getChildren().contains(winText))
+            {
+                endScreenGroup.getChildren().add(winText);
+            }
+            timeElapsed.setText(String.valueOf(gameResult.timeToCompleteGame));
+            return endScreenScene;
+        }
+        else
+        {
+            if(endScreenGroup.getChildren().contains(winText))
+            {
+                endScreenGroup.getChildren().remove(winText);
+            }
+            if(!endScreenGroup.getChildren().contains(loseText))
+            {
+                endScreenGroup.getChildren().add(loseText);
+            }
+            timeElapsed.setText(String.valueOf(gameResult.timeToCompleteGame));
+            return endScreenScene;
+        }
     }
     private void exitButtonClicked(MouseEvent event)
     {

@@ -10,18 +10,15 @@ public class GameDriver extends Application {
     WinLoseScene winLoseScene;
     Stage stage;
     GameResult gameResult;
-    boolean continueLoop;
+    int windowWidth = 600;
+    int windowHeight = 500;
     public void start(Stage primaryStage){
-        gameResult   = new GameResult();
-        titleScene   = new TitleScene(600, 500);
-        gameScene    = new GameScene(600, 500, 10, 10, 10, gameResult);
-        winLoseScene = new WinLoseScene(600, 500);
+        titleScene   = new TitleScene(windowWidth, windowHeight);
+        winLoseScene = new WinLoseScene(windowWidth, windowHeight);
         stage        = new Stage();
-        continueLoop = true;
 
         titleScene.startGameButton.setOnMouseClicked(this::startGameButtonPushed);
         winLoseScene.backToTitleButton.setOnMouseClicked(this::backToTitleButtonPushed);
-        gameScene.checkVictory.setOnMouseClicked(this::checkVictoryButtonPush);
         stage.setScene(titleScene.getScene());
         stage.setTitle("MineSweeper");
 
@@ -32,6 +29,9 @@ public class GameDriver extends Application {
 
     void startGameButtonPushed(MouseEvent event)
     {
+        gameResult = new GameResult();
+        gameScene = new GameScene(windowWidth, windowHeight, 10, 10, 10, gameResult);
+        gameScene.checkVictory.setOnMouseClicked(this::checkVictoryButtonPush);
         stage.setScene(gameScene.getGameScene());
     }
 
@@ -43,14 +43,7 @@ public class GameDriver extends Application {
     void checkVictoryButtonPush(MouseEvent event)
     {
         gameScene.checkVictory();
-        if(gameResult.didWin)
-        {
-            stage.setScene(winLoseScene.getWinScene(gameResult.timeToCompleteGame));
-        }
-        else
-        {
-            stage.setScene(winLoseScene.getLoseScene(gameResult.timeToCompleteGame));
-        }
+        stage.setScene(winLoseScene.getEndScreenScene(gameResult));
     }
 
     public static void main(String[] args) {
