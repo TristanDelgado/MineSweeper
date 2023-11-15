@@ -282,7 +282,7 @@ GameScene {
                     flagCount++;
                 }
                 else {
-                    if (flagCount >= 0){ //todo why won't this work. mineSquare[row][column].getImage() == MineSquare.coveredSquare) {
+                    if ((flagCount >= 0) && mineSquare[row][column].getImage().getUrl() == MineSquare.coveredSquare.getUrl()) {
                         System.out.println("here2");
                         mineSquare[row][column].changeToFlagSquare();
                         gameState.flagSquare(column, row);

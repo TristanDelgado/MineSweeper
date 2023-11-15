@@ -30,7 +30,7 @@ public class GameDriver extends Application {
     void startGameButtonPushed(MouseEvent event)
     {
         gameResult = new GameResult();
-        gameScene = new GameScene(windowWidth, windowHeight, 10, 10, 10, gameResult);
+        gameScene = new GameScene(windowWidth, windowHeight, 20, 20, 10, gameResult);
         gameScene.checkVictory.setOnMouseClicked(this::checkVictoryButtonPush);
         stage.setScene(gameScene.getGameScene());
     }
