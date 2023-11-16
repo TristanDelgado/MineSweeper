@@ -4,7 +4,6 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.input.MouseEvent;
 
-//todo figure out relative path - using github url, cannot figure out another way
 //todo replacing the sprites
 
 public class GameDriver extends Application {

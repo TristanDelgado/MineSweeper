@@ -7,7 +7,6 @@ import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -59,7 +58,7 @@ GameScene {
         centerBorder.setFill(Color.GRAY);
 
         Rectangle informationRectangle = new Rectangle(0, 0, 600, 62);
-        informationRectangle.setFill(Color.BLUE);
+        informationRectangle.setFill(Color.rgb(132, 144, 153));
 
         checkVictory = new Button("Submit");
         checkVictory.setLayoutX(windowWidth/2 - 45);
@@ -68,7 +67,7 @@ GameScene {
         displayTimeArray = new ImageView[3];
         for(int i = 0; i < 3; i++)
         {
-            displayTimeArray[i] = new ImageView(new Image("C:\\MineSweeperProj\\MineSweeper\\Images\\NoNumberSprite.png"));
+            displayTimeArray[i] = new ImageView(numberSprites.noNumberSprite);
             displayTimeArray[i].setLayoutY(24);
         }
         displayTimeArray[0].setLayoutX(windowWidth - (windowWidth * 0.03 + 15));
@@ -127,7 +126,7 @@ GameScene {
         displayFlagsArray = new ImageView[2];
         for(int i = 0; i < 2; i++)
         {
-            displayFlagsArray[i] = new ImageView(new Image("C:\\MineSweeperProj\\MineSweeper\\Images\\NoNumberSprite.png"));
+            displayFlagsArray[i] = new ImageView(numberSprites.noNumberSprite);
             displayFlagsArray[i].setLayoutY(24);
         }
         displayFlagsArray[0].setLayoutX(windowWidth * 0.03 + 15);
@@ -211,7 +210,7 @@ GameScene {
             }
         }
     }
-    private void clearAdjacentSquares(int row, int column) //todo finish this
+    private void clearAdjacentSquares(int row, int column)
     {
         System.out.println("In function");
         if(row < 0 || column < 0 || row > boardSizeHeight - 1 || column > boardSizeWidth - 1)

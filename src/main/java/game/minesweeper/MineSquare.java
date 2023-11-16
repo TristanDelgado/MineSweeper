@@ -19,19 +19,19 @@ public class MineSquare extends ImageView {
 
 
     MineSquare() {
-        coveredSquare        = new Image("C:\\MineSweeperProj\\MineSweeper\\Images\\CoveredSprite.png");
-        uncoveredBlankSquare = new Image("C:\\MineSweeperProj\\MineSweeper\\Images\\BlankSquareSprite.png");
-        flagSquare           = new Image("C:\\MineSweeperProj\\MineSweeper\\Images\\FlagSquareSprite.png");
-        mineSquare           = new Image("C:\\MineSweeperProj\\MineSweeper\\Images\\MineSquareSprite.png");
-        redMineSquare        = new Image("C:\\MineSweeperProj\\MineSweeper\\Images\\RedMineSquareSprite.png");
-        oneSquare            = new Image("C:\\MineSweeperProj\\MineSweeper\\Images\\OneSquareSprite.png");
-        twoSquare            = new Image("C:\\MineSweeperProj\\MineSweeper\\Images\\TwoSquareSprite.png");
-        threeSquare          = new Image("C:\\MineSweeperProj\\MineSweeper\\Images\\ThreeSquareSprite.png");
-        fourSquare           = new Image("C:\\MineSweeperProj\\MineSweeper\\Images\\FourSquareSprite.png");
-        fiveSquare           = new Image("C:\\MineSweeperProj\\MineSweeper\\Images\\FiveSquareSprite.png");
-        sixSquare            = new Image("C:\\MineSweeperProj\\MineSweeper\\Images\\SixSquareSprite.png");
-        sevenSquare          = new Image("C:\\MineSweeperProj\\MineSweeper\\Images\\SevenSquareSprite.png");
-        eightSquare          = new Image("C:\\MineSweeperProj\\MineSweeper\\Images\\EightSquareSprite.png");
+        coveredSquare        = new Image("C:\\MineSweeperProj\\MineSweeper\\src\\main\\java\\game\\Images\\CoveredSprite.png");
+        uncoveredBlankSquare = new Image("C:\\MineSweeperProj\\MineSweeper\\src\\main\\java\\game\\Images\\UncoveredBlankSquareSprite.png");
+        flagSquare           = new Image("C:\\MineSweeperProj\\MineSweeper\\src\\main\\java\\game\\Images\\FlagSquareSprite.png");
+        mineSquare           = new Image("C:\\MineSweeperProj\\MineSweeper\\src\\main\\java\\game\\Images\\MineSquareSprite.png");
+        redMineSquare        = new Image("C:\\MineSweeperProj\\MineSweeper\\src\\main\\java\\game\\Images\\RedMineSquareSprite.png");
+        oneSquare            = new Image("C:\\MineSweeperProj\\MineSweeper\\src\\main\\java\\game\\Images\\OneSquareSprite.png");
+        twoSquare            = new Image("C:\\MineSweeperProj\\MineSweeper\\src\\main\\java\\game\\Images\\TwoSquareSprite.png");
+        threeSquare          = new Image("C:\\MineSweeperProj\\MineSweeper\\src\\main\\java\\game\\Images\\ThreeSquareSprite.png");
+        fourSquare           = new Image("C:\\MineSweeperProj\\MineSweeper\\src\\main\\java\\game\\Images\\FourSquareSprite.png");
+        fiveSquare           = new Image("C:\\MineSweeperProj\\MineSweeper\\src\\main\\java\\game\\Images\\FiveSquareSprite.png");
+        sixSquare            = new Image("C:\\MineSweeperProj\\MineSweeper\\src\\main\\java\\game\\Images\\SixSquareSprite.png");
+        sevenSquare          = new Image("C:\\MineSweeperProj\\MineSweeper\\src\\main\\java\\game\\Images\\SevenSquareSprite.png");
+        eightSquare          = new Image("C:\\MineSweeperProj\\MineSweeper\\src\\main\\java\\game\\Images\\EightSquareSprite.png");
     }
 
     public void changeToCoveredSquare() {
