@@ -4,8 +4,6 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.input.MouseEvent;
 
-//todo replacing the sprites
-
 public class GameDriver extends Application {
     TitleScene titleScene;
     GameScene gameScene;
