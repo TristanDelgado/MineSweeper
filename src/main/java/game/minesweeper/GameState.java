@@ -73,7 +73,7 @@ public class GameState {
         return res;
     }
     boolean isMine(int x, int y) {
-        System.out.println("isMineCordGet:" + Character.toString(grid.get(x).get(y)));
+        //System.out.println("isMineCordGet:" + Character.toString(grid.get(x).get(y)));
         return (grid.get(x).get(y) == 'x' ||  grid.get(x).get(y) == 'X');
 
     }
@@ -102,18 +102,12 @@ public class GameState {
             int ry = random.nextInt(width);
             int[] ccord = {rx,ry};
             for (int j = 0; j < cords.size(); j++) {
-                    if(!(cords.get(j)[0] == ccord[0] && cords.get(j)[1] == ccord[1])) {
-                        cords.add(ccord);
-                        grid.get(rx).set(ry, 'x');
-                    }
+                if(!(cords.get(j)[0] == ccord[0] && cords.get(j)[1] == ccord[1])) {
+                    cords.add(ccord);
+                    grid.get(rx).set(ry, 'x');
+                }
             }
-
         }
-        for(int i = 0; i < height; i++) {
-            for(int j = 0; j < width; j++) {
-                //if(grid.get(i).get(j) != 'x') grid.get(i).set(j, Character.forDigit(countAdjMines(i,j), 10) );
-            }
-         }
     }
 
     void flagSquare(int x, int y) {
@@ -131,7 +125,5 @@ public class GameState {
 
 
     }
-
-
 
 }

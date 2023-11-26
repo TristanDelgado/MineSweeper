@@ -1,6 +1,9 @@
 package game.minesweeper;
 
 import javafx.scene.image.Image;
+
+import java.util.Objects;
+
 public class NumberSprites {
     Image noNumberSprite;
     Image zeroSprite;
@@ -15,16 +18,16 @@ public class NumberSprites {
     Image nineSprite;
     NumberSprites()
     {
-        noNumberSprite = new Image("C:\\MineSweeperProj\\MineSweeper\\src\\main\\java\\game\\Images\\NoNumberSprite.png");
-        zeroSprite     = new Image("C:\\MineSweeperProj\\MineSweeper\\src\\main\\java\\game\\Images\\ZeroSprite.png");
-        oneSprite      = new Image("C:\\MineSweeperProj\\MineSweeper\\src\\main\\java\\game\\Images\\OneSprite.png");
-        twoSprite      = new Image("C:\\MineSweeperProj\\MineSweeper\\src\\main\\java\\game\\Images\\TwoSprite.png");
-        threeSprite    = new Image("C:\\MineSweeperProj\\MineSweeper\\src\\main\\java\\game\\Images\\ThreeSprite.png");
-        fourSprite     = new Image("C:\\MineSweeperProj\\MineSweeper\\src\\main\\java\\game\\Images\\FourSprite.png");
-        fiveSprite     = new Image("C:\\MineSweeperProj\\MineSweeper\\src\\main\\java\\game\\Images\\FiveSprite.png");
-        sixSprite      = new Image("C:\\MineSweeperProj\\MineSweeper\\src\\main\\java\\game\\Images\\SixSprite.png");
-        sevenSprite    = new Image("C:\\MineSweeperProj\\MineSweeper\\src\\main\\java\\game\\Images\\SevenSprite.png");
-        eightSprite    = new Image("C:\\MineSweeperProj\\MineSweeper\\src\\main\\java\\game\\Images\\EightSprite.png");
-        nineSprite     = new Image("C:\\MineSweeperProj\\MineSweeper\\src\\main\\java\\game\\Images\\NineSprite.png");
+        noNumberSprite = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/game/minesweeper/Images/NoNumberSprite.png")));
+        zeroSprite     = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/game/minesweeper/Images/ZeroSprite.png")));
+        oneSprite      = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/game/minesweeper/Images/OneSprite.png")));
+        twoSprite      = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/game/minesweeper/Images/TwoSprite.png")));
+        threeSprite    = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/game/minesweeper/Images/ThreeSprite.png")));
+        fourSprite     = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/game/minesweeper/Images/FourSprite.png")));
+        fiveSprite     = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/game/minesweeper/Images/FiveSprite.png")));
+        sixSprite      = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/game/minesweeper/Images/SixSprite.png")));
+        sevenSprite    = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/game/minesweeper/Images/SevenSprite.png")));
+        eightSprite    = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/game/minesweeper/Images/EightSprite.png")));
+        nineSprite     = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/game/minesweeper/Images/NineSprite.png")));
     }
 }

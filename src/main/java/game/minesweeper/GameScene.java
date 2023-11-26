@@ -212,25 +212,20 @@ GameScene {
     }
     private void clearAdjacentSquares(int row, int column)
     {
-        System.out.println("In function");
         if(row < 0 || column < 0 || row > boardSizeHeight - 1 || column > boardSizeWidth - 1)
         {
-            System.out.println("In one");
             return;
         }
         if(mineSquare[row][column].getImage() == MineSquare.uncoveredBlankSquare)
         {
-            System.out.println("In two");
             return;
         }
         int adjMines = gameState.countAdjMines(column, row);
         if(adjMines > 0)
         {
-            System.out.println("in three");
             mineSquare[row][column].changeToNumberSquare(adjMines);
             return;
         }
-        System.out.println("exiting");
         mineSquare[row][column].changeToUncoveredBlankSquare();
         clearAdjacentSquares(row - 1, column);
         clearAdjacentSquares(row + 1, column);
@@ -244,9 +239,9 @@ GameScene {
             Scanner sc = new Scanner(id);
             int row = sc.nextInt();
             int column = sc.nextInt();
-            System.out.println("Row: " + row);
-            System.out.println("Column: " + column);
-            System.out.println("Before: " + gameState.getaGridCord(column, row));
+            //System.out.println("Row: " + row);
+            //System.out.println("Column: " + column);
+            //System.out.println("Before: " + gameState.getaGridCord(column, row));
             if (event.getButton() == MouseButton.PRIMARY) {
                 if(!(mineSquare[row][column].getImage() == MineSquare.flagSquare))
                 {
@@ -268,7 +263,7 @@ GameScene {
                         else //if the space does not have adjacent mines, clear spaces until clearing the area
                         {
                             clearAdjacentSquares(row, column);
-                            System.out.println("BlankSquare");
+                            //System.out.println("BlankSquare");
                         }
                     }
                 }
@@ -281,13 +276,14 @@ GameScene {
                     flagCount++;
                 }
                 else {
-                    if ((flagCount >= 0) && mineSquare[row][column].getImage().getUrl() == MineSquare.coveredSquare.getUrl()) {
-                        System.out.println("here2");
+                    if ((flagCount >= 0)) {  // && (mineSquare[row][column]).checkCoveredSquare()
                         mineSquare[row][column].changeToFlagSquare();
                         gameState.flagSquare(column, row);
                         flagCount--;
                     }
                 }
+                System.out.println((mineSquare[row][column]).getImage().getUrl());
+                System.out.println(MineSquare.coveredSquare);
             }
             updateFlagCountDisplay();
 
