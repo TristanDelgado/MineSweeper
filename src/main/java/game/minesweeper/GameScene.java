@@ -242,8 +242,11 @@ GameScene {
             //System.out.println("Row: " + row);
             //System.out.println("Column: " + column);
             //System.out.println("Before: " + gameState.getaGridCord(column, row));
+            System.out.println((mineSquare[row][column]).getImage().getPixelReader().getColor(0,0));
+            System.out.println(MineSquare.flagSquare.getPixelReader().getColor(0,0));
+
             if (event.getButton() == MouseButton.PRIMARY) {
-                if(!(mineSquare[row][column].getImage() == MineSquare.flagSquare))
+                if(!(mineSquare[row][column].getImage().getPixelReader().getColor(0,0).equals(MineSquare.flagSquare.getPixelReader().getColor(0,0))))
                 {
                     if (gameState.isMine(column, row)) // clicked on a mine
                     {
@@ -270,13 +273,13 @@ GameScene {
 
             }
             if (event.getButton() == MouseButton.SECONDARY) {
-                if (mineSquare[row][column].getImage() == MineSquare.flagSquare) {
+                if ((mineSquare[row][column].getImage().getPixelReader().getColor(0,0).equals(MineSquare.flagSquare.getPixelReader().getColor(0,0)))) {
                     mineSquare[row][column].changeToCoveredSquare();
                     gameState.flagSquare(column, row);
                     flagCount++;
                 }
                 else {
-                    if ((flagCount >= 0)) {  // && (mineSquare[row][column]).checkCoveredSquare()
+                    if ((flagCount >= 0) && (mineSquare[row][column]).checkCoveredSquare()) {
                         mineSquare[row][column].changeToFlagSquare();
                         gameState.flagSquare(column, row);
                         flagCount--;

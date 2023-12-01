@@ -87,6 +87,6 @@ public class MineSquare extends ImageView {
 
     public boolean checkCoveredSquare()
     {
-        return (this.getImage() == coveredSquare);
+        return (this.getImage().getPixelReader().getColor(0,0).equals(coveredSquare.getPixelReader().getColor(0,0)));
     }
 }
